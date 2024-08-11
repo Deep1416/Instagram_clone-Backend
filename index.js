@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 dotenv.config({});
 const app = express();
@@ -24,6 +25,7 @@ app.use(urlencoded({ extended: true }));
 // Define routes
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/post", postRoutes);
+app.use("/api/v1/message", messageRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
