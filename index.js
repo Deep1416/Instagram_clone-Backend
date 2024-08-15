@@ -9,7 +9,6 @@ import messageRoutes from "./routes/message.route.js";
 
 dotenv.config({});
 const app = express();
-
 // CORS configuration
 const corsOptions = {
   origin: "http://localhost:5173",
