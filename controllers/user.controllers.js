@@ -90,7 +90,7 @@ export const login = async (req, res) => {
         }
         return null;
       })
-    ).then(posts => posts.filter(post => post !== null));
+    ).then((posts) => posts.filter((post) => post !== null));
 
     // Extract user details to be returned in the response
     const userData = {
@@ -126,7 +126,6 @@ export const login = async (req, res) => {
   }
 };
 
-
 export const logout = async (req, res) => {
   try {
     // Clear the token cookie by setting its value to an empty string and its maxAge to 0
@@ -149,9 +148,9 @@ export const getProfile = async (req, res) => {
     const userId = req.params.id;
 
     // Find the user by ID
-    const user = await User.findById(userId).select(
-      "-password"
-    );;
+    const user = await User.findById(userId)
+      .populate({ path: "posts", createdAt: -1 })
+      .populate("bookmarks");
 
     // Check if user exists
     if (!user) {
@@ -177,9 +176,9 @@ export const getProfile = async (req, res) => {
 
 export const editProfile = async (req, res) => {
   try {
-    // const userId = req.id;
+    const userId = req.id;
     console.log(userId);
-     // Assumes authentication middleware attaches user ID to req object
+    // Assumes authentication middleware attaches user ID to req object
     const { bio, gender } = req.body;
     const profilePicture = req.file;
 
@@ -251,7 +250,7 @@ export const followAndUnfollow = async (req, res) => {
     const targetUserId = req.params.id;
 
     console.log(followerId);
-    
+
     if (followerId === targetUserId) {
       return res.status(400).json({
         message: "You cannot follow/unfollow yourself",

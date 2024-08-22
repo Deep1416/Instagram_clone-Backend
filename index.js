@@ -6,9 +6,9 @@ import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
 import messageRoutes from "./routes/message.route.js";
-
+import { app,server } from "./socket/socket.js";
 dotenv.config({});
-const app = express();
+// const app = express();
 // CORS configuration
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -27,7 +27,7 @@ app.use("/api/v1/post", postRoutes);
 app.use("/api/v1/message", messageRoutes);
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectDB();
   console.log(`Server is up and running at http://localhost:${PORT} 🚀`);
 });
