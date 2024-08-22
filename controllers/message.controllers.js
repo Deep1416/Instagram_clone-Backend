@@ -6,7 +6,8 @@ export const sendMessage = async (req, res) => {
     const senderId = req.id; // Get the sender's ID from the request
     const reciverId = req.params.id; // Get the receiver's ID from the URL parameters
     const { message } = req.body; // Extract the message content from the request body
-
+    // console.log(message);
+    
     // Find a conversation between the sender and receiver, if it exists
     let conversation = await Conversation.findOne({
       participants: { $all: [senderId, reciverId] },
